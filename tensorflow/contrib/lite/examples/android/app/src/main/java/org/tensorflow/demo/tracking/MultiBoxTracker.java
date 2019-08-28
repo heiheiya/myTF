@@ -62,13 +62,7 @@ public class MultiBoxTracker {
     Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.WHITE,
     Color.parseColor("#55FF55"), Color.parseColor("#FFA500"), Color.parseColor("#FF8888"),
     Color.parseColor("#AAAAFF"), Color.parseColor("#FFFFAA"), Color.parseColor("#55AAAA"),
-    Color.parseColor("#AA33AA"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
-          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
-          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
-          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
-          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
-          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
-          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+    Color.parseColor("#AA33AA"), Color.parseColor("#0D0068")
   };
 
   private int getColorFromID(int id){
@@ -200,8 +194,8 @@ public class MultiBoxTracker {
 
       final String labelString =
           !TextUtils.isEmpty(recognition.title)
-              ? String.format("%s %.2f", recognition.title, recognition.detectionConfidence)
-              : String.format("%.2f", recognition.detectionConfidence);
+              ? String.format("%s", recognition.title)
+              : String.format("unknown");
       borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.bottom, labelString);
     }
   }
@@ -301,18 +295,18 @@ public class MultiBoxTracker {
         float idf = Float.valueOf(potential.second.getId());
         trackedRecognition.color = getColorFromID((int)idf);
         trackedObjects.add(trackedRecognition);
-        logger.e("id: " + idf + "  color: " + trackedRecognition.color);
+        //logger.i("id: " + idf + "  color: " + trackedRecognition.color);
 
         //if ((int)idf >= COLORS.length) {
         //  break;
         //}
       }
       //logger.e("%d rectsToTrack ", rectsToTrack.size());
-      logger.e("I will return");
+      //logger.i("I will return");
       return;
     }
 
-    logger.e("%d rects to track", rectsToTrack.size());
+    logger.i("%d rects to track", rectsToTrack.size());
     for (final Pair<Float, Recognition> potential : rectsToTrack) {
       handleDetection(originalFrame, timestamp, potential);
     }
@@ -431,7 +425,7 @@ public class MultiBoxTracker {
     trackedRecognition.title = potential.second.getTitle();
     float idf = Float.valueOf(potential.second.getId());
     trackedRecognition.color = getColorFromID((int)idf);
-    logger.e("id: " + idf + "  color: " + trackedRecognition.color);
+    //logger.i("id: " + idf + "  color: " + trackedRecognition.color);
 
     // Use the color from a replaced object before taking one from the color queue.
     //trackedRecognition.color =
