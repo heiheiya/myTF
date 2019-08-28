@@ -62,8 +62,21 @@ public class MultiBoxTracker {
     Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.WHITE,
     Color.parseColor("#55FF55"), Color.parseColor("#FFA500"), Color.parseColor("#FF8888"),
     Color.parseColor("#AAAAFF"), Color.parseColor("#FFFFAA"), Color.parseColor("#55AAAA"),
-    Color.parseColor("#AA33AA"), Color.parseColor("#0D0068")
+    Color.parseColor("#AA33AA"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
   };
+
+  private int getColorFromID(int id){
+    int colors[][] = { { 1,0,1 },{ 0,0,1 },{ 0,1,1 },{ 0,1,0 },{ 1,1,0 },{ 1,0,0 } };
+    int offset = id * 1234567 % 6;
+    int scale = 150 + (id * 1234567) % 100;
+    return Color.rgb(colors[offset][0] * scale, colors[offset][1]  * scale, colors[offset][2] * scale);
+  }
 
   private final Queue<Integer> availableColors = new LinkedList<Integer>();
 
@@ -285,17 +298,21 @@ public class MultiBoxTracker {
         trackedRecognition.location = new RectF(potential.second.getLocation());
         trackedRecognition.trackedObject = null;
         trackedRecognition.title = potential.second.getTitle();
-        trackedRecognition.color = COLORS[trackedObjects.size()];
+        float idf = Float.valueOf(potential.second.getId());
+        trackedRecognition.color = getColorFromID((int)idf);
         trackedObjects.add(trackedRecognition);
+        logger.e("id: " + idf + "  color: " + trackedRecognition.color);
 
-        if (trackedObjects.size() >= COLORS.length) {
-          break;
-        }
+        //if ((int)idf >= COLORS.length) {
+        //  break;
+        //}
       }
+      //logger.e("%d rectsToTrack ", rectsToTrack.size());
+      logger.e("I will return");
       return;
     }
 
-    logger.i("%d rects to track", rectsToTrack.size());
+    logger.e("%d rects to track", rectsToTrack.size());
     for (final Pair<Float, Recognition> potential : rectsToTrack) {
       handleDetection(originalFrame, timestamp, potential);
     }
@@ -363,7 +380,7 @@ public class MultiBoxTracker {
     // If we're already tracking the max object and no intersections were found to bump off,
     // pick the worst current tracked object to remove, if it's also worse than this candidate
     // object.
-    if (availableColors.isEmpty() && removeList.isEmpty()) {
+    if ( availableColors.isEmpty() && removeList.isEmpty()) {
       for (final TrackedRecognition candidate : trackedObjects) {
         if (candidate.detectionConfidence < potential.first) {
           if (recogToReplace == null
@@ -395,7 +412,7 @@ public class MultiBoxTracker {
       }
     }
 
-    if (recogToReplace == null && availableColors.isEmpty()) {
+    if (recogToReplace == null && availableColors.isEmpty() ) {
       logger.e("No room to track this object, aborting.");
       potentialObject.stopTracking();
       return;
@@ -412,10 +429,13 @@ public class MultiBoxTracker {
     trackedRecognition.detectionConfidence = potential.first;
     trackedRecognition.trackedObject = potentialObject;
     trackedRecognition.title = potential.second.getTitle();
+    float idf = Float.valueOf(potential.second.getId());
+    trackedRecognition.color = getColorFromID((int)idf);
+    logger.e("id: " + idf + "  color: " + trackedRecognition.color);
 
     // Use the color from a replaced object before taking one from the color queue.
-    trackedRecognition.color =
-        recogToReplace != null ? recogToReplace.color : availableColors.poll();
+    //trackedRecognition.color =
+     //   recogToReplace != null ? recogToReplace.color : availableColors.poll();
     trackedObjects.add(trackedRecognition);
   }
 }

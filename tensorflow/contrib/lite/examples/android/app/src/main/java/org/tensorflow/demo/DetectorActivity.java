@@ -50,9 +50,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
   // Configuration values for the prepackaged SSD model.
   private static final int TF_OD_API_INPUT_SIZE = 300;
-  private static final boolean TF_OD_API_IS_QUANTIZED = true;
-  private static final String TF_OD_API_MODEL_FILE = "detect.tflite";
-  private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
+  //private static final boolean TF_OD_API_IS_QUANTIZED = true;
+  private static final boolean TF_OD_API_IS_QUANTIZED = false;
+  //private static final String TF_OD_API_MODEL_FILE = "detect.tflite";
+  private static final String TF_OD_API_MODEL_FILE = "chaoyingDataset1.tflite";
+  //private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco_labels_list.txt";
+  private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/chaoyingDataset1.txt";
   
   // Which detection model to use: by default uses Tensorflow Object Detection API frozen
   // checkpoints.
@@ -63,7 +66,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private static final DetectorMode MODE = DetectorMode.TF_OD_API;
 
   // Minimum detection confidence to track a detection.
-  private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.6f;
+  private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.2f;
 
   private static final boolean MAINTAIN_ASPECT = false;
 
@@ -246,6 +249,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             final long startTime = SystemClock.uptimeMillis();
             final List<Classifier.Recognition> results = detector.recognizeImage(croppedBitmap);
             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+            LOGGER.e("detection time:  " + lastProcessingTimeMs);
 
             cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
             final Canvas canvas = new Canvas(cropCopyBitmap);
@@ -264,8 +268,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             final List<Classifier.Recognition> mappedRecognitions =
                 new LinkedList<Classifier.Recognition>();
 
+            int i = 1;
             for (final Classifier.Recognition result : results) {
               final RectF location = result.getLocation();
+              //LOGGER.e("box_" + result.getTitle() +  "_" + result.getId() + " confidence: " + result.getConfidence());
+              i = i + 1;
               if (location != null && result.getConfidence() >= minimumConfidence) {
                 canvas.drawRect(location, paint);
 

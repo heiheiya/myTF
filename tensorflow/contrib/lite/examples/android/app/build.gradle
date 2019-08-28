@@ -2,18 +2,26 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "org.tensorflow.lite.demo"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_TOOLCHAIN=gcc', '-DANDROID_STL=gnustl_static'
+            }
+        }
 
         // Remove this block.
-        jackOptions {
-            enabled true
-        }
+        //jackOptions {
+        //    enabled true
+        //}
     }
     lintOptions {
         abortOnError false
@@ -22,6 +30,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs 'src/main/jniLibs'
         }
     }
     aaptOptions {
@@ -46,9 +59,9 @@ project.ext.TMP_DIR   = project.buildDir.toString() + '/downloads'
 
 // Download default models; if you wish to use your own models then
 // place them in the "assets" directory and comment out this line.
-apply from: "download-models.gradle"
+//apply from: "download-models.gradle"
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
 }

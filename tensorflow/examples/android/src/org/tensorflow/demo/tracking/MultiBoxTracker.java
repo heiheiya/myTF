@@ -62,7 +62,13 @@ public class MultiBoxTracker {
     Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.WHITE,
     Color.parseColor("#55FF55"), Color.parseColor("#FFA500"), Color.parseColor("#FF8888"),
     Color.parseColor("#AAAAFF"), Color.parseColor("#FFFFAA"), Color.parseColor("#55AAAA"),
-    Color.parseColor("#AA33AA"), Color.parseColor("#0D0068")
+    Color.parseColor("#AA33AA"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
+          Color.parseColor("#0D0068"), Color.parseColor("#0D0068"), Color.parseColor("#0D0068"),
   };
 
   private final Queue<Integer> availableColors = new LinkedList<Integer>();
@@ -285,10 +291,11 @@ public class MultiBoxTracker {
         trackedRecognition.location = new RectF(potential.second.getLocation());
         trackedRecognition.trackedObject = null;
         trackedRecognition.title = potential.second.getTitle();
-        trackedRecognition.color = COLORS[trackedObjects.size()];
+        float idf = Float.valueOf(potential.second.getId());
+        trackedRecognition.color = COLORS[(int)idf];
         trackedObjects.add(trackedRecognition);
 
-        if (trackedObjects.size() >= COLORS.length) {
+        if ((int)idf >= COLORS.length) {
           break;
         }
       }

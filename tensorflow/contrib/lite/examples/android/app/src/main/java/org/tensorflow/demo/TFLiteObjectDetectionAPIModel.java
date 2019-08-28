@@ -45,7 +45,7 @@ public class TFLiteObjectDetectionAPIModel implements Classifier {
   private static final Logger LOGGER = new Logger();
 
   // Only return this many results.
-  private static final int NUM_DETECTIONS = 10;
+  private static final int NUM_DETECTIONS = 100;
   private boolean isModelQuantized;
   // Float model
   private static final float IMAGE_MEAN = 128.0f;
@@ -210,7 +210,7 @@ public class TFLiteObjectDetectionAPIModel implements Classifier {
       int labelOffset = 1;
       recognitions.add(
           new Recognition(
-              "" + i,
+                  Float.toString(outputClasses[0][i]),
               labels.get((int) outputClasses[0][i] + labelOffset),
               outputScores[0][i],
               detection));

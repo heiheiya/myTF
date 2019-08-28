@@ -74,6 +74,8 @@ android_binary(
     assets = [
         "//tensorflow/examples/android/assets:asset_files",
         ":external_assets",
+        "//tensorflow/examples/android/assets:frozen_inference_graph.pb",
+        "//tensorflow/examples/android/assets:chaoyingDataset1.txt",
     ],
     assets_dir = "",
     custom_package = "org.tensorflow.demo",
