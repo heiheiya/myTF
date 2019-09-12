@@ -14,7 +14,7 @@ android {
         }
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_TOOLCHAIN=gcc', '-DANDROID_STL=gnustl_static'
+                cppFlags "-std=c++11 -fopenmp"
             }
         }
 
@@ -30,6 +30,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild{
+        cmake{
+            path "CMakeLists.txt"
         }
     }
     sourceSets {
