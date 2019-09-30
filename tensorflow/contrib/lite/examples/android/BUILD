@@ -47,6 +47,8 @@ android_binary(
 		"//tensorflow/contrib/lite/examples/android/app/src/main/assets:MobileNetSSD_deploy.param",
 		"//tensorflow/contrib/lite/examples/android/app/src/main/assets:MobileNetSSD_deploy.param.bin",
 		"//tensorflow/contrib/lite/examples/android/app/src/main/assets:MobileNetSSD_deploy.bin",
+		"//tensorflow/contrib/lite/examples/android/app/src/main/assets:coat_helmet_expand.tflite",
+		"//tensorflow/contrib/lite/examples/android/app/src/main/assets:coat_helmet_expand.txt"
     ],
     assets_dir = "",
     custom_package = "org.tensorflow.lite.demo",

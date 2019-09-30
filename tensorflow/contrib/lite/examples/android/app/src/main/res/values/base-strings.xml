@@ -18,5 +18,5 @@
 <resources>
     <string name="app_name">巡逻者</string>
     <string name="activity_name_detection">巡逻者</string>
-    <string name="activity_name_detection_ncnn">巡逻者NCNN</string>
+    <string name="activity_name_detection_helmet">安全帽识别</string>
 </resources>

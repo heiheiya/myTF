@@ -54,8 +54,8 @@ public class ObjectTracker {
 
   static {
     try {
-      System.loadLibrary("tensorflow_demo");
-      libraryFound = true;
+      //System.loadLibrary("tensorflow_demo");
+      libraryFound = false;
     } catch (UnsatisfiedLinkError e) {
       LOGGER.e("libtensorflow_demo.so not found, tracking unavailable");
     }
