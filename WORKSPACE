@@ -79,3 +79,17 @@ new_http_archive(
         "http://download.tensorflow.org/models/speech_commands_v0.01.zip",
     ],
 )
+
+android_sdk_repository(
+   name = "androidsdk",
+   api_level = 28,
+   build_tools_version = "28.0.1",
+   path = "D:/software/android/androidsdk",
+)
+
+# Android NDK r12b is recommended (higher may cause issues with Bazel)
+android_ndk_repository(
+   name="androidndk",
+   path="D:/software/android/android-ndk-r15c",
+   api_level=21
+)

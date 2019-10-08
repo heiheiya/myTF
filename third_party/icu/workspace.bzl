@@ -10,6 +10,7 @@ def repo():
         urls = [
             "https://mirror.bazel.build/github.com/unicode-org/icu/archive/release-62-1.tar.gz",
             "https://github.com/unicode-org/icu/archive/release-62-1.tar.gz",
+			"http://localhost/release-62-1.tar.gz" ,
         ],
         build_file = "//third_party/icu:BUILD.bazel",
     )
