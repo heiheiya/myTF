@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package com.chaoying.helmet.tracking;
+package org.tensorflow.demo.tracking;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -54,8 +54,8 @@ public class ObjectTracker {
 
   static {
     try {
-      //System.loadLibrary("tensorflow_demo");
-      libraryFound = false;
+      System.loadLibrary("tensorflow_demo");
+      libraryFound = true;
     } catch (UnsatisfiedLinkError e) {
       LOGGER.e("libtensorflow_demo.so not found, tracking unavailable");
     }

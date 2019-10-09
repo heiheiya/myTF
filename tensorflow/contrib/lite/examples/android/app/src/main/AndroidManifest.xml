@@ -42,7 +42,8 @@
         </activity>
         <activity android:name="org.tensorflow.demo.HelmetDetectorActivity"
             android:screenOrientation="portrait"
-            android:label="安全帽识别">
+            android:label="安全帽识别"
+            android:icon="@drawable/ic_launcher1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

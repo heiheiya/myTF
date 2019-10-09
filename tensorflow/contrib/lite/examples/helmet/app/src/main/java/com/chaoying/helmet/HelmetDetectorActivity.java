@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.chaoying.helmet.env.BorderedText;
 import com.chaoying.helmet.env.ImageUtils;
 import com.chaoying.helmet.env.Logger;
-import com.chaoying.helmet.tracking.MultiBoxTracker;
+import org.tensorflow.demo.tracking.MultiBoxTracker;
 import com.chaoying.helmet.R;
 
 import java.io.IOException;
