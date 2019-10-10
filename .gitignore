@@ -55,3 +55,4 @@ gradleBuild
 /tensorflow/contrib/lite/examples/instrument/app/.externalNativeBuild/
 /tensorflow/contrib/lite/examples/instrument/app/build/
 /tensorflow/contrib/lite/examples/instrument/app/src/main/assets/
+assets
